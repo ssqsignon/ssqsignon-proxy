@@ -1,0 +1,46 @@
+{
+    "name": "ssqsignon-proxy-express",
+    "version": "1.0.0",
+    "description": "An express middleware that proxies requests to an SSQ signon authorization server.",
+    "main": "ssqsignon-proxy-express.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ssqsignon/ssqsignon-proxy.git"
+    },
+    "keywords": [
+        "ssq",
+        "ssqsignon",
+        "auth",
+        "proxy",
+        "authorization",
+        "sso",
+        "slave",
+        "confidential",
+        "client",
+        "secret",
+        "authorization",
+        "code"
+    ],
+    "author": {
+        "name": "Piotr Wójcik",
+        "email": "piotr.wojcik@rivierasolutions.pl",
+        "url": "http://rivierasolutions.pl"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/MIT"
+        }
+    ],
+    "bugs": {
+        "url": "https://github.com/ssqsignon/ssqsignon-proxy/issues"
+    },
+    "homepage": "https://github.com/ssqsignon/ssqsignon-proxy#readme",
+    "dependencies": {
+        "body-parser": "^1.14.2",
+        "express": "^4.13.4"
+    }
+}
