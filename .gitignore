@@ -1,2 +1,6 @@
 .idea/
 nodejs/express/node_modules/
+dotnet/apsnetwebapi2/packages/
+dotnet/apsnetwebapi2/SSQSignonProxyASPNetWebAPI2/obj/
+dotnet/apsnetwebapi2/SSQSignonProxyASPNetWebAPI2/bin/
+*.nupkg
