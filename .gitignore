@@ -4,3 +4,6 @@ dotnet/apsnetwebapi2/packages/
 dotnet/apsnetwebapi2/SSQSignonProxyASPNetWebAPI2/obj/
 dotnet/apsnetwebapi2/SSQSignonProxyASPNetWebAPI2/bin/
 *.nupkg
+dotnet/nancyfx/packages/
+dotnet/nancyfx/SSQSignonProxyNancyFx/obj/
+dotnet/nancyfx/SSQSignonProxyNancyFx/bin/

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SSQSignon.Proxy.AspNet")]
-[assembly: AssemblyDescription("An abstract Asp.Net Web API controller for poxying requests  to ssqsignon.com.")]
+[assembly: AssemblyTitle("SSQSignon.Proxy.Nancy")]
+[assembly: AssemblyDescription("An abstract Nancy module for poxying requests  to ssqsignon.com.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Riviera Solutions")]
-[assembly: AssemblyProduct("SSQSignonProxyASPNetWebAPI2")]
+[assembly: AssemblyProduct("SSQ Signon")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("09108c83-7a37-4083-8a10-d95b6999327e")]
+[assembly: Guid("97ea1a50-ae90-47e0-a08e-e618c05c56e7")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.1.0")]
+[assembly: AssemblyFileVersion("1.0.1.0")]

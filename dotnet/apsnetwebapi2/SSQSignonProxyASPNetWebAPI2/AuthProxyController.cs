@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace SSQsignon
 {
-    public abstract class AuthProxyController : ApiController
+    public abstract class ProxyController : ApiController
     {
         public class AuthRequestModel
         {
@@ -31,8 +31,17 @@ namespace SSQsignon
             public string client_secret { get; set; }
         }
 
-        public AuthProxyController(string moduleName, string clientId, string clientSecret, bool grantTypeDetection = true)
+        public ProxyController(string moduleName, string clientId, string clientSecret, bool grantTypeDetection = true)
         {
+            if (string.IsNullOrEmpty(moduleName))
+            {
+                throw new ArgumentNullException("moduleName");
+            }
+            if (string.IsNullOrEmpty(clientId))
+            {
+                throw new ArgumentNullException("clientId");
+            }
+
             ModuleName = moduleName;
             ClientId = clientId;
             ClientSecret = clientSecret;
@@ -44,7 +53,7 @@ namespace SSQsignon
             }
         }
 
-        public virtual dynamic Get(string command, string response_type = null, string redirect_uri = null, string client_id = null, string state = null, string scope = null)
+        public virtual dynamic Get(string command, string response_type = null, string redirect_uri = null, string client_id = null, string state = null, string scope = null, bool deny_access = false)
         {
             if (command.Equals("whoami", StringComparison.InvariantCultureIgnoreCase))
             {
@@ -52,7 +61,7 @@ namespace SSQsignon
             }
             else if (command.Equals("saferedirect", StringComparison.InvariantCultureIgnoreCase))
             {
-                return SafeRedirect(response_type, redirect_uri, client_id, state, scope);
+                return SafeRedirect(response_type, redirect_uri, client_id, state, scope, deny_access);
             }
             return StatusCode(HttpStatusCode.NotFound);
         }
@@ -84,11 +93,12 @@ namespace SSQsignon
 
         }
 
-        protected virtual dynamic SafeRedirect(string response_type, string redirectUri, string clientId, string state, string scope)
+        protected virtual dynamic SafeRedirect(string response_type, string redirectUri, string clientId, string state, string scope, bool deny_access)
         {
             var request = new RestRequest("saferedirect", Method.GET);
             CopyAuthorizationHeader(request);
             request.Parameters.Add(new Parameter { Type = ParameterType.QueryString, Name = "response_type", Value = string.IsNullOrEmpty(response_type) ? "code" : response_type });
+            request.Parameters.Add(new Parameter { Type = ParameterType.QueryString, Name = "deny_access", Value = deny_access });
             if (!string.IsNullOrEmpty(redirectUri))
             {
                 request.Parameters.Add(new Parameter { Type = ParameterType.QueryString, Name = "redirect_uri", Value = redirectUri });
