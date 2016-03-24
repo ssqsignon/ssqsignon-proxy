@@ -1,10 +1,13 @@
 
-module.exports = function ssqSignonProxy(moduleName, clientId, clientSecret, grantTypeDetection, connectionPooling) {
+module.exports = function ssqSignonProxy(moduleName, clientId, clientSecret, options) {
 
     var bodyParser = require('body-parser'),
         https = require('https'),
         express = require('express'),
         router = express.Router(),
+        grantTypeDetection = options.grantTypeDetection,
+        connectionPooling = options.connectionPooling,
+        noPipe = options.noPipe,
         agent = (connectionPooling !== false) ? new https.Agent({ keepAlive: true }) : null;
 
     router.use(bodyParser.json());
@@ -91,10 +94,18 @@ module.exports = function ssqSignonProxy(moduleName, clientId, clientSecret, gra
     function proxy(requestConfig, bodyAsString, parentRes) {
         var req = https.request(requestConfig, function(response) {
             parentRes.writeHead(response.statusCode, response.headers);
-            response.pipe(parentRes);
+            if (noPipe) {
+                parentRes.ssqsignon = response;
+            } else {
+                response.pipe(parentRes);
+            }
         })
             .on('error', function(e) {
-                parentRes.status(500).send({ reason: e });
+                if (noPipe) {
+                    parentRes.ssqsignon = { error: e };
+                } else {
+                    parentRes.status(500).send({ reason: e });
+                }
             });
         req.end(bodyAsString);
     }
