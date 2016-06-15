@@ -8,6 +8,7 @@ module.exports = function ssqSignonProxy(moduleName, clientId, clientSecret, opt
         grantTypeDetection = options.grantTypeDetection,
         connectionPooling = options.connectionPooling,
         noPipe = options.noPipe,
+        host = options.host || 'ssqsignon.com',
         agent = (connectionPooling !== false) ? new https.Agent({ keepAlive: true }) : null;
 
     router.use(bodyParser.json());
@@ -38,7 +39,7 @@ module.exports = function ssqSignonProxy(moduleName, clientId, clientSecret, opt
 
     function tokenEndpoint(bodyAsString) {
         return { method: 'POST',
-            host: 'ssqsignon.com',
+            host: host,
             path: [ '', moduleName, 'auth' ].join('/'),
             auth: clientSecret ? [ clientId, clientSecret ].join(':') : null,
             headers: { 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': bodyAsString.length },
@@ -48,7 +49,7 @@ module.exports = function ssqSignonProxy(moduleName, clientId, clientSecret, opt
 
     function tokenValidationEndpoint(parentReq) {
         return { method: 'GET',
-            host: 'ssqsignon.com',
+            host: host,
             path: [ '', moduleName, 'whoami' ].join('/'),
             headers: { 'Authorization': parentReq.get('Authorization') },
             agent: agent
@@ -75,7 +76,7 @@ module.exports = function ssqSignonProxy(moduleName, clientId, clientSecret, opt
         }
 
         return { method: 'GET',
-            host: 'ssqsignon.com',
+            host: host,
             path: [[ '', moduleName, 'saferedirect' ].join('/'), queryString.join('&')].join('?'),
             headers: { 'Authorization': parentReq.get('Authorization') },
             agent: agent
@@ -84,7 +85,7 @@ module.exports = function ssqSignonProxy(moduleName, clientId, clientSecret, opt
 
     function tokenNullificationEndpoint(parentReq) {
         return { method: 'DELETE',
-            host: 'ssqsignon.com',
+            host: host,
             path: [ '', moduleName, parentReq.params.id, 'tokens' ].join('/'),
             headers: { 'Authorization': parentReq.get('Authorization') },
             agent: agent
