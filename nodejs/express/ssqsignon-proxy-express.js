@@ -5,9 +5,9 @@ module.exports = function ssqSignonProxy(moduleName, clientId, clientSecret, opt
         https = require('https'),
         express = require('express'),
         router = express.Router(),
+        options = options || {},
         grantTypeDetection = options.grantTypeDetection,
         connectionPooling = options.connectionPooling,
-        options = options || {},
         noPipe = options.noPipe,
         host = options.host || 'ssqsignon.com',
         agent = (connectionPooling !== false) ? new https.Agent({ keepAlive: true }) : null;
